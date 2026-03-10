@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Navbar from '@/components/Navbar'
+import { Providers } from '@/providers/Providers'
 
 export const metadata: Metadata = {
   title: 'BITSI — Become a Partner',
@@ -26,13 +27,15 @@ export default function RootLayout({
         className="min-h-screen"
         style={{ background: 'linear-gradient(to bottom, #0133e9, #6c28ee)' }}
       >
-        <div
-          className="min-h-screen"
-          style={{ background: 'rgba(0,0,0,0.3)' }}
-        >
-          <Navbar />
-          {children}
-        </div>
+        <Providers>
+          <div
+            className="min-h-screen"
+            style={{ background: 'rgba(0,0,0,0.3)' }}
+          >
+            <Navbar />
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   )

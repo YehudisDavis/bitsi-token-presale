@@ -1,51 +1,36 @@
 'use client'
 
-import { useState, useCallback } from 'react'
-
-interface WalletState {
-  address: string | null
-  isConnected: boolean
-  isConnecting: boolean
-}
+import { useAccount, useDisconnect, useBalance, useChainId, useSwitchChain } from 'wagmi'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { sepolia } from 'wagmi/chains'
 
 export function useWallet() {
-  const [state, setState] = useState<WalletState>({
-    address: null,
-    isConnected: false,
-    isConnecting: false,
-  })
+  const { address, isConnected } = useAccount()
+  const { disconnect: wagmiDisconnect } = useDisconnect()
+  const { openConnectModal } = useConnectModal()
+  const { data: balance } = useBalance({ address })
+  const chainId = useChainId()
+  const { switchChain } = useSwitchChain()
 
-  const connect = useCallback(async () => {
-    setState(prev => ({ ...prev, isConnecting: true }))
-    try {
-      if (typeof window !== 'undefined' && (window as unknown as { ethereum?: { request: (args: { method: string }) => Promise<string[]> } }).ethereum) {
-        const eth = (window as unknown as { ethereum: { request: (args: { method: string }) => Promise<string[]> } }).ethereum
-        const accounts = await eth.request({ method: 'eth_requestAccounts' })
-        setState({ address: accounts[0], isConnected: true, isConnecting: false })
-      } else {
-        // Demo fallback
-        setState({
-          address: '0x742d35Cc6634C0532925a3b8D4C9DE8ae4D35Cf',
-          isConnected: true,
-          isConnecting: false,
-        })
-      }
-    } catch {
-      setState(prev => ({ ...prev, isConnecting: false }))
-    }
-  }, [])
+  const isOnSepolia = chainId === sepolia.id
 
-  const disconnect = useCallback(() => {
-    setState({ address: null, isConnected: false, isConnecting: false })
-  }, [])
+  const formatAddress = (addr: string) =>
+    `${addr.slice(0, 6)}...${addr.slice(-4)}`
 
-  const formatAddress = (address: string) =>
-    `${address.slice(0, 6)}...${address.slice(-4)}`
+  const formattedBalance = balance
+    ? `${parseFloat(balance.formatted).toFixed(4)} ${balance.symbol}`
+    : null
 
   return {
-    ...state,
-    connect,
-    disconnect,
-    formattedAddress: state.address ? formatAddress(state.address) : null,
+    address,
+    isConnected,
+    isConnecting: false,
+    isOnSepolia,
+    connect: openConnectModal ?? (() => {}),
+    disconnect: () => wagmiDisconnect(),
+    switchToSepolia: () => switchChain({ chainId: sepolia.id }),
+    formattedAddress: address ? formatAddress(address) : null,
+    balance,
+    formattedBalance,
   }
 }

@@ -8,10 +8,25 @@ interface WalletConnectProps {
   variant?: 'navbar' | 'page'
 }
 
+function NetworkBadge({ chainName, formattedBalance }: {
+  chainName: string
+  formattedBalance: string | null
+}) {
+  return (
+    <div className="flex items-center gap-2 text-[12px] font-poppins">
+      <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_6px_#4ade80]" />
+      <span className="text-green-400 font-medium">{chainName}</span>
+      <span className="text-white/40">•</span>
+      <span className="text-white/80">{formattedBalance ?? '0.0000 ETH'}</span>
+    </div>
+  )
+}
+
 export default function WalletConnect({ variant = 'navbar' }: WalletConnectProps) {
   const {
     isConnected,
     isOnSepolia,
+    chainName,
     formattedAddress,
     formattedBalance,
     connect,
@@ -19,7 +34,6 @@ export default function WalletConnect({ variant = 'navbar' }: WalletConnectProps
     switchToSepolia,
   } = useWallet()
 
-  // Wrong network warning
   if (isConnected && !isOnSepolia) {
     return (
       <button
@@ -45,8 +59,8 @@ export default function WalletConnect({ variant = 'navbar' }: WalletConnectProps
           <img src={WALLET_ICON} alt="" className="w-[25px] h-[23px]" />
           {isConnected ? formattedAddress! : 'Connect wallet'}
         </button>
-        {isConnected && formattedBalance && (
-          <span className="text-white/70 font-inter text-[13px]">{formattedBalance}</span>
+        {isConnected && (
+          <NetworkBadge chainName={chainName} formattedBalance={formattedBalance} />
         )}
       </div>
     )
@@ -55,15 +69,15 @@ export default function WalletConnect({ variant = 'navbar' }: WalletConnectProps
   // Navbar variant
   if (isConnected) {
     return (
-      <button
-        onClick={disconnect}
-        className="bg-[#9b22f8] text-white font-poppins text-[14px] px-4 py-2 rounded-[10px] h-[50px] transition-opacity hover:opacity-90 flex flex-col items-center justify-center leading-tight min-w-[143px]"
-      >
-        <span className="truncate max-w-[130px]">{formattedAddress}</span>
-        {formattedBalance && (
-          <span className="text-white/70 text-[11px]">{formattedBalance}</span>
-        )}
-      </button>
+      <div className="flex flex-col items-center gap-1">
+        <button
+          onClick={disconnect}
+          className="bg-[#9b22f8] text-white font-poppins text-[14px] px-4 py-2 rounded-[10px] h-[50px] transition-opacity hover:opacity-90 min-w-[143px]"
+        >
+          {formattedAddress}
+        </button>
+        <NetworkBadge chainName={chainName} formattedBalance={formattedBalance} />
+      </div>
     )
   }
 

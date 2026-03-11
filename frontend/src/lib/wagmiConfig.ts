@@ -2,19 +2,17 @@ import { createConfig, http } from 'wagmi'
 import { sepolia } from 'wagmi/chains'
 import { connectorsForWallets } from '@rainbow-me/rainbowkit'
 import {
-  metaMaskWallet,
   injectedWallet,
   rabbyWallet,
   braveWallet,
   frameWallet,
 } from '@rainbow-me/rainbowkit/wallets'
 
-// No WalletConnect wallets here — none of these require a project ID
 const connectors = connectorsForWallets(
   [
     {
       groupName: 'Browser Wallets',
-      wallets: [metaMaskWallet, injectedWallet, rabbyWallet, braveWallet, frameWallet],
+      wallets: [injectedWallet, rabbyWallet, braveWallet, frameWallet],
     },
   ],
   { appName: 'BITSI Presale', projectId: 'none' }

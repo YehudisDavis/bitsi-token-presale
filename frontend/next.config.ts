@@ -1,5 +1,4 @@
 import type { NextConfig } from 'next'
-import path from 'path'
 
 const nextConfig: NextConfig = {
   images: {
@@ -11,11 +10,6 @@ const nextConfig: NextConfig = {
     ],
   },
   webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      // Stub MetaMask SDK — browser extension works via window.ethereum without it
-      '@metamask/sdk': path.resolve(__dirname, 'src/mocks/metamask-sdk.js'),
-    }
     config.resolve.fallback = {
       ...config.resolve.fallback,
       '@coinbase/wallet-sdk': false,

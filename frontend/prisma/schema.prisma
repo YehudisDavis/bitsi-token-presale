@@ -32,3 +32,21 @@ model Voucher {
   redeemedAt      DateTime?
   user            User          @relation(fields: [wallet], references: [wallet])
 }
+
+enum TemplateState {
+  ACTIVE
+  INACTIVE
+  SOLD_OUT
+}
+
+model VoucherTemplate {
+  id             String        @id @default(cuid())
+  voucherType    Int           @unique
+  amount         Float
+  maxPurchase    Float
+  participation  Int
+  ethPrice       String
+  validationDate DateTime
+  state          TemplateState @default(ACTIVE)
+  createdAt      DateTime      @default(now())
+}

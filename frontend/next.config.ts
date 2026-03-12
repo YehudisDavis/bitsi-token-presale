@@ -19,6 +19,8 @@ const nextConfig: NextConfig = {
       '@base-org/account': false,
       porto: false,
       'porto/internal': false,
+      '@react-native-async-storage/async-storage': false,
+      'pino-pretty': false,
     }
     return config
   },

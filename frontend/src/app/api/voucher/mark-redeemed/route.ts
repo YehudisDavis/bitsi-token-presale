@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     const wallet = (walletAddress as string).toLowerCase()
 
     const voucher = await prisma.voucher.findFirst({
-      where: { id, walletAddress: wallet },
+      where: { id, wallet },
     })
 
     if (!voucher) {

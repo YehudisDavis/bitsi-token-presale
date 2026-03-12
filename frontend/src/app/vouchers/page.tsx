@@ -1,39 +1,56 @@
-import VoucherCard from '@/components/VoucherCard'
+import StackedVoucherCard from '@/components/StackedVoucherCard'
+import VoucherCarousel from '@/components/VoucherCarousel'
 
 const VOUCHER_TIERS = [
-  { amount: 100, maxPurchase: 200 },
-  { amount: 500, maxPurchase: 1000 },
-  { amount: 1000, maxPurchase: 2000 },
-  { amount: 10000, maxPurchase: 20000 },
+  { amount: 100,   maxPurchase: 200,   couponId: '12312445' },
+  { amount: 1000,  maxPurchase: 2000,  couponId: '12312445' },
+  { amount: 500,   maxPurchase: 1000,  couponId: '12312445' },
+  { amount: 10000, maxPurchase: 20000, couponId: '12312445' },
 ]
 
 export default function VouchersPage() {
   return (
-    <main className="w-full max-w-[1400px] mx-auto px-6 md:px-16 pb-16">
+    <main className="w-full pb-16 overflow-x-hidden">
+
       {/* Hero */}
-      <section className="text-center pt-8 pb-12">
-        <h1 className="font-poppins font-bold text-white text-[32px] md:text-[51px] leading-[1.2] mb-4">
-          Select Your Voucher
+      <section className="text-center px-6 pt-8 pb-6 max-w-[1100px] mx-auto">
+        <h1 className="font-poppins text-white leading-[1.2]">
+          <span className="block font-bold text-[51px]">
+            Become a partner of lunching BITSI
+          </span>
+          <span className="block font-normal text-[43px]">
+            the protection layer for crypto holders
+          </span>
         </h1>
-        <p className="font-poppins text-white text-[18px] md:text-[30px] leading-[1.2] max-w-[800px] mx-auto mb-8">
-          Choose a tier to participate and get your discount coupon.
-          Voucher value = 133.33% of your participation amount.
+        <p className="font-poppins font-normal text-white text-[30px] leading-[1.2] mt-4 max-w-[900px] mx-auto">
+          Join the BITSI launch and receive a bonus voucher for your BITSI purchase.
         </p>
-        <div className="w-full h-px bg-white opacity-40" />
       </section>
 
-      {/* Voucher grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+      {/* Divider */}
+      <div className="w-full h-px bg-white opacity-40 mb-10" />
+
+      {/* Voucher grid — 2 columns, stacked cards */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 px-6 md:px-16 max-w-[1400px] mx-auto">
         {VOUCHER_TIERS.map(tier => (
           <div key={tier.amount} className="flex justify-center">
-            <VoucherCard
+            <StackedVoucherCard
               amount={tier.amount}
               maxPurchase={tier.maxPurchase}
-              couponId="12312445"
+              couponId={tier.couponId}
             />
           </div>
         ))}
       </section>
+
+      {/* Active coupons carousel */}
+      <section className="mt-20">
+        <h2 className="font-poppins font-normal text-white text-[26px] text-center mb-8">
+          Active coupons
+        </h2>
+        <VoucherCarousel tiers={VOUCHER_TIERS} />
+      </section>
+
     </main>
   )
 }

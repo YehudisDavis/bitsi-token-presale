@@ -1,14 +1,15 @@
+'use client'
+
 import Link from 'next/link'
 
-const COUPON_BG = 'https://www.figma.com/api/mcp/asset/28c34e29-6d69-4c21-86c1-6baf1cc94b2c'
-const LOGO_URL = 'https://www.figma.com/api/mcp/asset/9d6575fb-b279-4887-8d83-6caa93417b55'
+const COUPON_BG = 'https://www.figma.com/api/mcp/asset/2203da1f-1136-430d-bfd8-c3c2f4f87f69'
+const LOGO = 'https://www.figma.com/api/mcp/asset/54b3d275-6269-4692-ba57-bc4b92388bb8'
 
 interface VoucherCardProps {
   amount: number
   maxPurchase: number
   validFrom?: string
   couponId?: string
-  participationAmount?: number
   isActive?: boolean
   onUseDiscount?: () => void
 }
@@ -22,77 +23,105 @@ export default function VoucherCard({
   onUseDiscount,
 }: VoucherCardProps) {
   return (
-    <div className="relative flex rounded-[28px] overflow-hidden shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] w-full max-w-[481px] h-[213px]">
-      {/* Left purple side */}
-      <div
-        className="relative shrink-0 flex items-center justify-center overflow-hidden"
-        style={{ width: '101px' }}
-      >
+    <div
+      className="relative w-full max-w-[481px] h-[213px] flex items-stretch overflow-hidden rounded-[28px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25),0px_5.614px_11.228px_-4.211px_rgba(35,39,47,0.12),0px_2.807px_5.614px_-4.211px_rgba(35,39,47,0.04)]"
+    >
+      {/* Coupon background image (purple side) */}
+      <div className="absolute inset-0">
         <img
           src={COUPON_BG}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute max-w-none"
+          style={{
+            width: '230.175px',
+            height: '240px',
+            left: 'calc(50% - 125.82px)',
+            top: 'calc(50% - 0.2px)',
+            transform: 'translate(-50%, -50%)',
+          }}
         />
-        <p
-          className="relative font-manrope font-bold text-white text-[28px] tracking-widest"
-          style={{ transform: 'rotate(-90deg)', whiteSpace: 'nowrap' }}
-        >
-          DISCOUNT
-        </p>
-        <p
-          className="absolute bottom-2 font-manrope font-medium text-[10px] text-[#d2d2d2]"
-          style={{ transform: 'rotate(-90deg)', whiteSpace: 'nowrap', fontSize: '10px' }}
-        >
+      </div>
+
+      {/* Left — DISCOUNT label */}
+      <div className="relative shrink-0 flex items-center justify-center w-[101px]">
+        <div className="-rotate-90 flex-none">
+          <div className="flex flex-col items-start justify-center px-[17px] w-[213px]">
+            <p className="font-manrope font-bold text-[28px] leading-[42px] text-center text-white w-full">
+              DISCOUNT
+            </p>
+          </div>
+        </div>
+        {/* Coupon ID at bottom of purple strip */}
+        <p className="absolute bottom-3 font-manrope text-[12px] text-[#d2d2d2] text-center w-full">
           {couponId}
         </p>
       </div>
 
-      {/* Right white side */}
-      <div className="flex-1 bg-white relative rounded-br-[22px] rounded-tr-[22px] px-4 pt-3 pb-4">
-        {/* BITSI logo */}
-        <img
-          src={LOGO_URL}
-          alt="BITSI"
-          className="absolute top-2 right-3 w-9 h-9 object-contain"
-        />
+      {/* Right — white content area */}
+      <div className="relative flex-1 bg-white rounded-tr-[22px] rounded-br-[22px]">
 
         {/* Valid from */}
-        <p className="font-manrope font-medium text-[#5b5760] text-[12px]">
+        <p
+          className="absolute font-manrope font-medium text-[#5b5760] text-[12px] leading-[28px]"
+          style={{ left: '16.95px', top: '3px', width: '136px' }}
+        >
           Valid from: {validFrom}
         </p>
 
         {/* Amount */}
-        <p className="font-manrope font-bold text-[#232027] text-[37px] leading-none mt-2">
+        <p
+          className="absolute font-manrope font-bold text-[#232027] text-[37px] leading-[39px] whitespace-nowrap"
+          style={{ left: '16.84px', top: '29px' }}
+        >
           ${amount.toLocaleString()}
         </p>
 
-        {/* Description */}
-        <p className="font-manrope font-medium text-[#5b5760] text-[14px] leading-[22px] mt-1">
-          50% off - in purchase till {maxPurchase.toLocaleString()} USD
-        </p>
-        <p className="font-manrope font-medium text-[#3c0eb9] text-[14px]">
-          *Terms &amp; conditions
+        {/* Description + Terms */}
+        <p
+          className="absolute font-manrope font-medium text-[16px] leading-[28px]"
+          style={{ left: '16.84px', top: '69px', width: '346px' }}
+        >
+          <span className="text-[#5b5760]">
+            50% off - in purchase till {maxPurchase.toLocaleString()} USD
+          </span>
+          <br />
+          <span className="text-[#3c0eb9]">*Terms &amp; conditions</span>
         </p>
 
-        {/* Buttons */}
-        <div className="absolute bottom-3 left-4 flex gap-3">
-          <Link href={`/redeem?amount=${amount}`}>
-            <button className="bg-[#5d37c5] border border-[#ece7f8] text-white font-manrope font-bold text-[14px] px-6 py-2 rounded-full shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:opacity-90 transition-opacity">
-              Participate
-            </button>
-          </Link>
-          <button
-            onClick={onUseDiscount}
-            disabled={!isActive}
-            className={`border border-[#ece7f8] text-white font-manrope font-bold text-[14px] px-6 py-2 rounded-full transition-opacity ${
-              isActive
-                ? 'bg-[#5d37c5] hover:opacity-90 cursor-pointer'
-                : 'bg-[#c8c8c8] cursor-not-allowed opacity-80'
-            }`}
-          >
-            Use discount
-          </button>
-        </div>
+        {/* Participate button */}
+        <Link
+          href={`/redeem?amount=${amount}`}
+          className={`absolute flex items-center justify-center w-[158px] py-[8px] rounded-[22px] border border-[#ece7f8] font-manrope font-bold text-[16px] leading-[28px] text-white whitespace-nowrap overflow-hidden transition-opacity ${
+            isActive
+              ? 'bg-[#c8c8c8] pointer-events-none'
+              : 'bg-[#5d37c5] hover:opacity-90'
+          }`}
+          style={{ left: '24.95px', top: '152px' }}
+        >
+          Participate
+        </Link>
+
+        {/* Use discount button */}
+        <button
+          onClick={onUseDiscount}
+          disabled={!isActive}
+          className={`absolute flex items-center justify-center w-[158px] py-[8px] rounded-[22px] border border-[#ece7f8] font-manrope font-bold text-[16px] leading-[28px] text-white whitespace-nowrap overflow-hidden transition-opacity ${
+            isActive
+              ? 'bg-[#5d37c5] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:opacity-90 cursor-pointer'
+              : 'bg-[#c8c8c8] cursor-not-allowed'
+          }`}
+          style={{ left: '197.95px', top: '152px' }}
+        >
+          Use discount
+        </button>
+      </div>
+
+      {/* BITSI logo */}
+      <div
+        className="absolute pointer-events-none"
+        style={{ left: '85.45%', right: '4.99%', top: '15px', aspectRatio: '1135/1280' }}
+      >
+        <img src={LOGO} alt="BITSI" className="absolute inset-0 w-full h-full object-cover" />
       </div>
     </div>
   )

@@ -6,15 +6,6 @@ import { VOUCHER_MANAGER_ABI } from '@/lib/abi'
 
 const CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000') as `0x${string}`
 
-// ── Voucher tier definitions ───────────────────────────────────────────────
-
-export const VOUCHER_TYPES = [
-  { type: 0, usdAmount: 100,   maxPurchase: 200,   price: '0.001', label: '$100' },
-  { type: 1, usdAmount: 500,   maxPurchase: 1000,  price: '0.005', label: '$500' },
-  { type: 2, usdAmount: 1000,  maxPurchase: 2000,  price: '0.01',  label: '$1,000' },
-  { type: 3, usdAmount: 10000, maxPurchase: 20000, price: '0.1',   label: '$10,000' },
-] as const
-
 // ── Purchase hook ──────────────────────────────────────────────────────────
 
 export function usePurchaseVoucher() {

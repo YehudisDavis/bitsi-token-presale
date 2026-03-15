@@ -101,7 +101,7 @@ export default function VoucherCard({
 
           {/* Participate button */}
           <Link
-            href={`/redeem?amount=${amount}`}
+            href={`/buy?amount=${amount}`}
             className={`absolute flex items-center justify-center w-[158px] py-[8px] rounded-[22px] border border-[#ece7f8] font-manrope font-bold text-[16px] leading-[28px] text-white whitespace-nowrap overflow-hidden transition-opacity ${
               isActive
                 ? 'bg-[#c8c8c8] pointer-events-none'

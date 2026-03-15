@@ -1,14 +1,20 @@
+export const dynamic = 'force-dynamic'
+
 import StackedVoucherCard from '@/components/StackedVoucherCard'
 import VoucherCarousel from '@/components/VoucherCarousel'
+import { prisma } from '@/lib/prisma'
 
-const VOUCHER_TIERS = [
-  { amount: 100,   maxPurchase: 200,   couponId: '12312445' },
-  { amount: 1000,  maxPurchase: 2000,  couponId: '12312445' },
-  { amount: 500,   maxPurchase: 1000,  couponId: '12312445' },
-  { amount: 10000, maxPurchase: 20000, couponId: '12312445' },
-]
+export default async function VouchersPage() {
+  const templates = await prisma.voucherTemplate.findMany({
+    where: { state: { not: 'INACTIVE' } },
+    orderBy: { amount: 'asc' },
+  })
 
-export default function VouchersPage() {
+  const VOUCHER_TIERS = templates.map(t => ({
+    amount: t.amount,
+    maxPurchase: t.maxPurchase,
+    couponId: String(t.voucherId),
+  }))
   return (
     <main className="w-full pb-16 overflow-x-hidden">
 

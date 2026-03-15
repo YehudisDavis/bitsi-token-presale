@@ -41,6 +41,7 @@ enum TemplateState {
 
 model VoucherTemplate {
   id             String        @id @default(cuid())
+  voucherId      Int           @unique @default(autoincrement())
   voucherType    Int           @unique
   amount         Float
   maxPurchase    Float

@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 
-const COUPON_BG = 'https://www.figma.com/api/mcp/asset/2203da1f-1136-430d-bfd8-c3c2f4f87f69'
-const LOGO = 'https://www.figma.com/api/mcp/asset/54b3d275-6269-4692-ba57-bc4b92388bb8'
+const COUPON_BG = '/images/coupon-bg.svg'
+const LOGO = '/images/bitsi-logo.png'
 
 interface VoucherCardProps {
   amount: number

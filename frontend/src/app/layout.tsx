@@ -6,6 +6,9 @@ import { Providers } from '@/providers/Providers'
 export const metadata: Metadata = {
   title: 'BITSI — Become a Partner',
   description: 'Join the BITSI launch and receive a bonus voucher for your first BITSI purchase.',
+  icons: {
+    icon: '/images/navbar-logo.png',
+  },
 }
 
 export default function RootLayout({

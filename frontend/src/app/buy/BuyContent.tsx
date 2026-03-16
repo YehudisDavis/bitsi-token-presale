@@ -18,14 +18,14 @@ interface VoucherTemplate {
 }
 
 const COINS = [
-  { src: 'https://www.figma.com/api/mcp/asset/29762bdd-41fb-4d03-82fd-11f9c1985fd6', label: 'BITSI' },
-  { src: 'https://www.figma.com/api/mcp/asset/04c4c9bb-3e11-4d39-8e38-42ce41a3610c', label: 'BTC' },
-  { src: 'https://www.figma.com/api/mcp/asset/62a8ab74-f0db-4b79-a754-5c3bb2ba9c62', label: 'ETH' },
-  { src: 'https://www.figma.com/api/mcp/asset/d0ee4123-c5d9-49c5-91b3-15c711a3fb67', label: 'USDT' },
-  { src: 'https://www.figma.com/api/mcp/asset/114da9ae-cbe5-461f-80cc-167d2c930dc0', label: 'SOL' },
+  { src: '/images/coin-bitsi.png', label: 'BITSI' },
+  { src: '/images/coin-btc.svg', label: 'BTC' },
+  { src: '/images/coin-eth.svg', label: 'ETH' },
+  { src: '/images/coin-usdt.svg', label: 'USDT' },
+  { src: '/images/coin-sol.svg', label: 'SOL' },
 ]
 
-const AMOUNT_BADGE_BG = 'https://www.figma.com/api/mcp/asset/2dbac468-2528-42f3-8a78-ef1227a3f258'
+const AMOUNT_BADGE_BG = '/images/amount-badge.svg'
 
 export default function BuyContent({ templates }: { templates: VoucherTemplate[] }) {
   const searchParams = useSearchParams()
@@ -190,8 +190,8 @@ export default function BuyContent({ templates }: { templates: VoucherTemplate[]
         )}
 
         <button
-          onClick={handleConfirm}
-          disabled={!isConnected || isLoading || (isSuccess && saved)}
+          onClick={isSuccess && saved ? () => window.location.href = '/vouchers' : handleConfirm}
+          disabled={!isConnected || isLoading}
           className="bg-[#b048ff] text-white font-inter text-[14px] text-center rounded-[8px] w-[200px] h-[38px] hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isPending ? 'Confirm in wallet...' : isConfirming ? 'Processing...' : isSuccess && saved ? 'Done!' : 'Confirm'}

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import WalletConnect from './WalletConnect'
 
-const LOGO_URL = 'https://www.figma.com/api/mcp/asset/9d6575fb-b279-4887-8d83-6caa93417b55'
+const LOGO_URL = '/images/navbar-logo.png'
 
 export default function Navbar() {
   return (

@@ -2,7 +2,7 @@
 
 import { useWallet } from '@/hooks/useWallet'
 
-const WALLET_ICON = 'https://www.figma.com/api/mcp/asset/0e6de79b-0f17-4853-b022-c766ab68d9ef'
+const WALLET_ICON = '/images/wallet-icon.svg'
 
 interface WalletConnectProps {
   variant?: 'navbar' | 'page'

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 
-const LINE_IMG = 'https://www.figma.com/api/mcp/asset/9215432c-97e5-47f9-83e2-0814e0d10f7f'
+const LINE_IMG = '/images/line.svg'
 
 export default function HomePage() {
   return (

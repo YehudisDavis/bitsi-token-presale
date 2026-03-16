@@ -5,10 +5,10 @@ import { prisma } from '@/lib/prisma'
 
 // Partner logo images from Figma
 const PARTNER_LOGOS = [
-  'https://www.figma.com/api/mcp/asset/4e28424d-0849-4e9d-b5d8-4b6ffcad1fa5', // image47
-  'https://www.figma.com/api/mcp/asset/eaafae1f-f6cc-46f1-85e6-b40d0a6e174f', // image49
-  'https://www.figma.com/api/mcp/asset/0be5b09c-be7b-47c7-8f19-cc97f8b6f574', // image50
-  'https://www.figma.com/api/mcp/asset/c0338e52-698a-4f37-89ff-459d9fde2595', // image51
+  '/images/partner-1.png',
+  '/images/partner-2.png',
+  '/images/partner-3.png',
+  '/images/partner-4.png',
 ]
 
 export default async function MyCouponsPage() {

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 const COUPON_BG = '/images/coupon-bg.svg'
 const LOGO = '/images/bitsi-logo.png'
@@ -11,6 +12,7 @@ interface VoucherCardProps {
   validFrom?: string
   couponId?: string
   isActive?: boolean
+  compact?: boolean
   onUseDiscount?: () => void
 }
 
@@ -18,22 +20,30 @@ interface VoucherCardProps {
 const CLIP_PATH =
   "path('M 28,0 L 453,0 Q 481,0 481,28 L 481,185 Q 481,213 453,213 L 28,213 Q 0,213 0,185 L 0,117.5 A 11,11 0 0,0 0,95.5 L 0,28 Q 0,0 28,0 Z')"
 
+// Compact variant — shorter, hides buttons
+const COMPACT_CLIP_PATH =
+  "path('M 28,0 L 453,0 Q 481,0 481,28 L 481,116 Q 481,144 453,144 L 28,144 Q 0,144 0,116 L 0,83 A 11,11 0 0,0 0,61 L 0,28 Q 0,0 28,0 Z')"
+
 export default function VoucherCard({
   amount,
   maxPurchase,
   validFrom = '11/06/2026',
   couponId = '12312445',
   isActive = false,
+  compact = false,
   onUseDiscount,
 }: VoucherCardProps) {
+  const clipPath = compact ? COMPACT_CLIP_PATH : CLIP_PATH
+  const height = compact ? 'h-[144px]' : 'h-[213px]'
+
   return (
-    <div className="relative w-full max-w-[481px] h-[213px]">
+    <div className={`relative w-full max-w-[481px] ${height}`}>
 
       {/* Card — clipped to coupon shape with real punch-hole notches */}
       <div
         className="absolute inset-0 flex items-stretch"
         style={{
-          clipPath: CLIP_PATH,
+          clipPath,
           filter: 'drop-shadow(0px 4px 4px rgba(0,0,0,0.25))',
         }}
       >
@@ -93,38 +103,38 @@ export default function VoucherCard({
             style={{ left: '16.84px', top: '69px', width: '346px' }}
           >
             <span className="text-[#5b5760]">
-              50% off - in purchase till {maxPurchase.toLocaleString()} USD
+              33.3% off
             </span>
             <br />
             <span className="text-[#3c0eb9]">*Terms &amp; conditions</span>
           </p>
 
-          {/* Participate button */}
-          <Link
-            href={`/buy?amount=${amount}`}
-            className={`absolute flex items-center justify-center w-[158px] py-[8px] rounded-[22px] border border-[#ece7f8] font-manrope font-bold text-[16px] leading-[28px] text-white whitespace-nowrap overflow-hidden transition-opacity ${
-              isActive
-                ? 'bg-[#c8c8c8] pointer-events-none'
-                : 'bg-[#5d37c5] hover:opacity-90'
-            }`}
-            style={{ left: '24.95px', top: '152px' }}
-          >
-            Participate
-          </Link>
-
-          {/* Use discount button */}
-          <button
-            onClick={onUseDiscount}
-            disabled={!isActive}
-            className={`absolute flex items-center justify-center w-[158px] py-[8px] rounded-[22px] border border-[#ece7f8] font-manrope font-bold text-[16px] leading-[28px] text-white whitespace-nowrap overflow-hidden transition-opacity ${
-              isActive
-                ? 'bg-[#5d37c5] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:opacity-90 cursor-pointer'
-                : 'bg-[#c8c8c8] cursor-not-allowed'
-            }`}
-            style={{ left: '197.95px', top: '152px' }}
-          >
-            Use discount
-          </button>
+          {/* Participate + Use discount buttons — hidden in compact mode */}
+          {!compact && <>
+            <Link
+              href={`/buy?amount=${amount}`}
+              className={`absolute flex items-center justify-center w-[158px] py-[8px] rounded-[22px] border border-[#ece7f8] font-manrope font-bold text-[16px] leading-[28px] text-white whitespace-nowrap overflow-hidden transition-opacity ${
+                isActive
+                  ? 'bg-[#c8c8c8] pointer-events-none'
+                  : 'bg-[#5d37c5] hover:opacity-90'
+              }`}
+              style={{ left: '24.95px', top: '152px' }}
+            >
+              Participate
+            </Link>
+            <button
+              onClick={onUseDiscount}
+              disabled={!isActive}
+              className={`absolute flex items-center justify-center w-[158px] py-[8px] rounded-[22px] border border-[#ece7f8] font-manrope font-bold text-[16px] leading-[28px] text-white whitespace-nowrap overflow-hidden transition-opacity ${
+                isActive
+                  ? 'bg-[#5d37c5] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:opacity-90 cursor-pointer'
+                  : 'bg-[#c8c8c8] cursor-not-allowed'
+              }`}
+              style={{ left: '197.95px', top: '152px' }}
+            >
+              Use discount
+            </button>
+          </>}
         </div>
       </div>
 
@@ -133,7 +143,7 @@ export default function VoucherCard({
         className="absolute pointer-events-none"
         style={{ left: '85.45%', right: '4.99%', top: '15px', aspectRatio: '1135/1280' }}
       >
-        <img src={LOGO} alt="BITSI" className="absolute inset-0 w-full h-full object-cover" />
+        <Image src={LOGO} alt="BITSI" fill className="object-cover" />
       </div>
     </div>
   )

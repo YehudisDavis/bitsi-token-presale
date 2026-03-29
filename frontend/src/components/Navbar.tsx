@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import WalletConnect from './WalletConnect'
 
 const LOGO_URL = '/images/navbar-logo.png'
@@ -8,7 +9,7 @@ export default function Navbar() {
     <nav className="relative z-10 flex items-center justify-between px-8 md:px-16 py-4 w-full">
       {/* Logo */}
       <Link href="/">
-        <img src={LOGO_URL} alt="BITSI Logo" className="w-[70px] h-[80px] object-contain" />
+        <Image src={LOGO_URL} alt="BITSI Logo" width={70} height={80} className="object-contain" />
       </Link>
 
       {/* Nav links */}

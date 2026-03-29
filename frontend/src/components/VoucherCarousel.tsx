@@ -50,7 +50,7 @@ export default function VoucherCarousel({ tiers }: { tiers: Tier[] }) {
             amount={tier.amount}
             maxPurchase={tier.maxPurchase}
             couponId={tier.couponId}
-            isActive
+            isActive={false}
           />
         </div>
       ))}

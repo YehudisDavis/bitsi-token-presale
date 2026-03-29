@@ -7,12 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum VoucherStatus {
-  ACTIVE
-  REDEEMED
-  EXPIRED
-}
-
 model User {
   id        String    @id @default(cuid())
   wallet    String    @unique
@@ -33,15 +27,8 @@ model Voucher {
   user            User          @relation(fields: [wallet], references: [wallet])
 }
 
-enum TemplateState {
-  ACTIVE
-  INACTIVE
-  SOLD_OUT
-}
-
 model VoucherTemplate {
   id             String        @id @default(cuid())
-  voucherId      Int           @unique @default(autoincrement())
   voucherType    Int           @unique
   amount         Float
   maxPurchase    Float
@@ -50,4 +37,17 @@ model VoucherTemplate {
   validationDate DateTime
   state          TemplateState @default(ACTIVE)
   createdAt      DateTime      @default(now())
+  voucherId      Int           @unique @default(autoincrement())
+}
+
+enum VoucherStatus {
+  ACTIVE
+  REDEEMED
+  EXPIRED
+}
+
+enum TemplateState {
+  ACTIVE
+  INACTIVE
+  SOLD_OUT
 }

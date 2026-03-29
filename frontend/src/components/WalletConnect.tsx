@@ -41,7 +41,7 @@ export default function WalletConnect({ variant = 'navbar' }: WalletConnectProps
         className={
           variant === 'page'
             ? 'flex items-center gap-3 bg-yellow-500 text-black font-nunito font-bold text-[16px] px-4 py-3 rounded-[12px] hover:bg-yellow-400 transition-colors'
-            : 'bg-yellow-500 text-black font-poppins text-[14px] px-4 py-2 rounded-[10px] h-[50px] hover:bg-yellow-400 transition-colors'
+            : 'flex items-center gap-[18px] bg-yellow-500 text-black font-nunito font-bold text-[16px] px-[16px] py-[12px] rounded-[12px] hover:bg-yellow-400 transition-colors'
         }
       >
         Switch to Sepolia
@@ -72,8 +72,9 @@ export default function WalletConnect({ variant = 'navbar' }: WalletConnectProps
       <div className="flex flex-col items-center gap-1">
         <button
           onClick={disconnect}
-          className="bg-[#9b22f8] text-white font-poppins text-[14px] px-4 py-2 rounded-[10px] h-[50px] transition-opacity hover:opacity-90 min-w-[143px]"
+          className="flex items-center gap-[18px] bg-[#b048ff] text-white font-nunito font-bold text-[16px] px-[16px] py-[12px] rounded-[12px] transition-opacity hover:opacity-90"
         >
+          <img src={WALLET_ICON} alt="" className="w-[25px] h-[23px]" />
           {formattedAddress}
         </button>
         <NetworkBadge chainName={chainName} formattedBalance={formattedBalance} />
@@ -84,9 +85,10 @@ export default function WalletConnect({ variant = 'navbar' }: WalletConnectProps
   return (
     <button
       onClick={connect}
-      className="bg-[#9b22f8] text-white font-poppins text-[16px] px-6 py-3 rounded-[10px] w-[143px] h-[50px] transition-opacity hover:opacity-90"
+      className="flex items-center gap-[18px] bg-[#b048ff] text-white font-nunito font-bold text-[16px] px-[16px] py-[12px] rounded-[12px] transition-opacity hover:opacity-90"
     >
-      Connect
+      <img src={WALLET_ICON} alt="" className="w-[25px] h-[23px]" />
+      Connect wallet
     </button>
   )
 }

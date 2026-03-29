@@ -72,10 +72,6 @@ export default function VoucherCard({
               </p>
             </div>
           </div>
-          {/* Coupon ID at bottom of purple strip */}
-          <p className="absolute bottom-3 font-manrope text-[12px] text-[#d2d2d2] text-center w-full">
-            {couponId}
-          </p>
         </div>
 
         {/* Right — white content area */}

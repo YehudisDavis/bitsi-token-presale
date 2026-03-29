@@ -127,16 +127,16 @@ export default function BuyContent({ templates }: { templates: VoucherTemplate[]
   const isDone = (coin.type === 'eth' && isSuccess && saved) || (coin.type === 'manual' && manualSaved)
 
   return (
-    <main className="w-full max-w-[1400px] mx-auto px-6 md:px-16 pb-16">
+    <main className="w-full pb-8">
       {/* Hero */}
-      <section className="text-center pt-8 pb-12">
-        <h1 className="font-poppins font-bold text-white text-[36px] md:text-[63px] leading-[1.2] mb-6 max-w-[1087px] mx-auto">
+      <section className="text-center pt-2 pb-2">
+        <h1 className="font-poppins font-bold text-white leading-[1.2] max-w-[1087px] mx-auto" style={{ fontSize: 'clamp(32px, 3.65vw, 63px)' }}>
           Join the BITSI launch and unlock exclusive coupon savings
         </h1>
       </section>
 
       {/* Coupon */}
-      <section className="flex justify-center mb-8">
+      <section className="flex justify-center mb-2">
         <VoucherCard
           amount={voucher.amount}
           maxPurchase={voucher.maxPurchase}
@@ -147,8 +147,8 @@ export default function BuyContent({ templates }: { templates: VoucherTemplate[]
       </section>
 
       {/* Purchase panel */}
-      <section className="max-w-[960px] mx-auto">
-        <div className="px-4 pb-4">
+      <section className="max-w-[960px] mx-auto px-4 md:px-0">
+        <div className="px-4 py-2">
           <h2 className="font-poppins text-white text-[30px] leading-[1.2]">Get the coupon</h2>
           <p className="font-inter text-[#ececec] text-[14px] mt-1">
             Review your policy upgrade details before activating.
@@ -156,16 +156,20 @@ export default function BuyContent({ templates }: { templates: VoucherTemplate[]
         </div>
 
         {/* Info rows */}
-        <div className="flex flex-col gap-[9px] mb-4">
+        <div className="flex flex-col gap-[9px] mb-[9px]">
           <div className="bg-[rgba(26,17,29,0.7)] flex items-center gap-4 h-[72px] px-4 py-2 rounded-[16px]">
-            <div className="bg-[#293038] rounded-[8px] w-[48px] h-[48px] shrink-0" />
+            <div className="bg-[#293038] rounded-[8px] w-[48px] h-[48px] shrink-0 flex items-center justify-center">
+              <img src="/images/icon-coupon.webp" alt="" className="w-[28px] h-[20px] object-contain" />
+            </div>
             <div>
               <p className="font-inter font-medium text-white text-[16px] leading-[24px]">Coupon amount</p>
               <p className="font-inter font-bold text-white text-[18px]">${voucher.amount.toLocaleString()}</p>
             </div>
           </div>
           <div className="bg-[rgba(26,17,29,0.7)] flex items-center gap-4 h-[72px] px-4 py-2 rounded-[16px]">
-            <div className="bg-[#293038] rounded-[8px] w-[48px] h-[48px] shrink-0" />
+            <div className="bg-[#293038] rounded-[8px] w-[48px] h-[48px] shrink-0 flex items-center justify-center">
+              <img src="/images/icon-dollar.webp" alt="" className="w-[24px] h-[24px] object-contain" />
+            </div>
             <div>
               <p className="font-inter font-medium text-white text-[16px] leading-[24px]">Participation amount</p>
               <p className="font-inter font-bold text-white text-[18px]">${voucher.participation}</p>
@@ -174,7 +178,7 @@ export default function BuyContent({ templates }: { templates: VoucherTemplate[]
         </div>
 
         {/* Payment method selector */}
-        <div className="backdrop-blur-[70px] bg-[rgba(60,53,74,0.5)] border-2 border-[rgba(255,255,255,0.5)] rounded-[20px] p-4 mb-4">
+        <div className="backdrop-blur-[70px] bg-[rgba(60,53,74,0.5)] border-2 border-[rgba(255,255,255,0.5)] rounded-[20px] p-4 mb-[9px]">
           <div className="flex items-center gap-2 mb-4">
             <p className="font-inter font-bold text-white text-[18px] md:text-[21px]">Select payment method</p>
             <p className="font-inter font-bold text-[#00ba34] text-[18px] md:text-[21px]">
@@ -182,7 +186,7 @@ export default function BuyContent({ templates }: { templates: VoucherTemplate[]
             </p>
           </div>
 
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-3 flex-wrap justify-center">
             {COIN_ORDER.map(id => {
               const c = COIN_CONFIG[id]
               return (
@@ -239,7 +243,7 @@ export default function BuyContent({ templates }: { templates: VoucherTemplate[]
           )}
         </div>
 
-        <p className="font-manrope font-medium text-white text-[16px] mb-4">
+        <p className="font-manrope font-medium text-white text-[16px] mb-[9px]">
           Coupon will be valid from: 11/06/2026
         </p>
 
@@ -285,8 +289,19 @@ export default function BuyContent({ templates }: { templates: VoucherTemplate[]
       </section>
 
       {/* Social icons */}
-      <div className="mt-12">
-        <img src="/images/social-icons.webp" alt="Social media" className="h-[34px] w-auto" />
+      <div className="mt-4 flex items-center gap-[13px] px-8 md:px-16">
+        <a href="https://t.me/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+          <img src="/images/social-telegram.webp" alt="Telegram" className="w-[28px] h-[28px]" />
+        </a>
+        <a href="https://x.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+          <img src="/images/social-x.webp" alt="X" className="w-[26px] h-[26px]" />
+        </a>
+        <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+          <img src="/images/social-youtube.webp" alt="YouTube" className="w-[34px] h-[34px]" />
+        </a>
+        <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+          <img src="/images/social-discord.webp" alt="Discord" className="w-[37px] h-[28px]" />
+        </a>
       </div>
     </main>
   )
